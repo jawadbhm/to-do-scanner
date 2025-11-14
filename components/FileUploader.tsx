@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { UploadIcon } from './Icons';
 
@@ -35,7 +34,6 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ onFileChange, fileCo
       }
     }
   };
-
 
   return (
     <div className="w-full">
