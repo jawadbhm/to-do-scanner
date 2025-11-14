@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
+    "test": "echo \"No tests yet\" && exit 0"
   },
   "dependencies": {
-    "@google/genai": "^1.29.1",
     "react-dom": "^19.2.0",
     "react": "^19.2.0"
   },
