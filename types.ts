@@ -10,3 +10,22 @@ export interface SummaryResult {
   todoCount: number;
   fixmeCount: number;
 }
+
+export interface PriorityTask {
+  task: string;
+  reasoning: string;
+  filePath: string;
+  lineNumber: number;
+}
+
+export interface CategoryGroup {
+  category: string;
+  description: string;
+  comments: string[];
+}
+
+export interface AiAnalysis {
+  overallSummary: string;
+  priorityTasks: PriorityTask[];
+  categoryGroups: CategoryGroup[];
+}
