@@ -1,5 +1,0 @@
-{
-  "name": "Code Todo Scanner",
-  "description": "An intelligent web-based tool to scan your code repositories for 'TODO' and 'FIXME' comments. Upload your project folder to get a detailed report, and leverage Gemini AI to analyze, categorize, and prioritize your technical debt.",
-  "requestFramePermissions": []
-}
