@@ -42,19 +42,23 @@ const App: React.FC = () => {
 
     const results: ScanResult[] = [];
     const fileReadPromises: Promise<void>[] = [];
-    const todoRegex = /.*(TODO|FIXME)[\s:\]\(]+(.*)/i;
+    const todoRegex = /.*(TODO|FIXME)[\s:\]\(]*(.*)/i;
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
-      // basic filter for text files
+      // Skip files larger than 1MB
+      if (file.size > 1000000) {
+        continue;
+      }
+
+      // Skip non-text files
       if (
         file.type &&
         !file.type.startsWith('text/') &&
         file.type !== 'application/javascript' &&
         file.type !== 'application/json' &&
-        file.type !== 'application/xml' &&
-        file.size > 1000000
+        file.type !== 'application/xml'
       ) {
         continue;
       }
@@ -72,14 +76,17 @@ const App: React.FC = () => {
                   filePath: file.webkitRelativePath || file.name,
                   lineNumber: index + 1,
                   type: match[1].toUpperCase() as 'TODO' | 'FIXME',
-                  comment: match[2].trim(),
+                  comment: match[2].trim() || '(no description)',
                 });
               }
             });
           }
           resolve();
         };
-        reader.onerror = () => resolve();
+        reader.onerror = (error) => {
+          console.error(`Error reading file ${file.name}:`, error);
+          resolve();
+        };
         reader.readAsText(file);
       });
 
@@ -182,6 +189,8 @@ const App: React.FC = () => {
             summaryResults={summaryResults}
             showSummary={showSummary}
             isLoading={isLoading}
+            isAnalyzing={false}
+            aiAnalysis={null}
           />
         </div>
       </main>
